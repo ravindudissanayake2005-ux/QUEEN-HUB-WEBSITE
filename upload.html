@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="si" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload - Queen Hub</title>
+    <!-- Tailwind CSS (via CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0f172a',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-dark text-slate-50 antialiased selection:bg-purple-500 selection:text-white flex flex-col min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass border-b border-slate-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center text-xl font-bold shadow-lg shadow-purple-500/30">
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
+                    <a href="index.html" class="text-2xl font-bold tracking-wider">QUEEN<span class="text-gradient">HUB</span></a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Gallery</a>
+                        <a href="upload.html" class="text-white hover:text-purple-400 px-3 py-2 rounded-md text-sm font-medium transition-colors border-b-2 border-purple-500">Upload</a>
+                        <a href="about.html" class="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                        <a href="#" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg shadow-purple-500/25 transition-all hover:-translate-y-0.5">Join Now</a>
+                    </div>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-300 hover:text-white p-2">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-[60] bg-dark/95 backdrop-blur-xl mobile-menu md:hidden flex flex-col items-center justify-center space-y-8">
+        <button id="close-menu-btn" class="absolute top-6 right-6 text-slate-300 hover:text-white p-2">
+            <i class="fas fa-times text-3xl"></i>
+        </button>
+        <a href="index.html" class="text-2xl font-bold text-slate-300 hover:text-white transition-colors">Gallery</a>
+        <a href="upload.html" class="text-2xl font-bold text-white hover:text-purple-400 transition-colors">Upload</a>
+        <a href="about.html" class="text-2xl font-bold text-slate-300 hover:text-white transition-colors">About</a>
+        <a href="#" class="mt-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-3 rounded-full text-lg font-bold shadow-lg shadow-purple-500/25">Join Now</a>
+    </div>
+
+    <!-- Upload Section -->
+    <div class="flex-grow pt-32 pb-20 relative overflow-hidden flex items-center justify-center">
+        <!-- Background accents -->
+        <div class="absolute inset-0 z-0 pointer-events-none">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[100px]"></div>
+        </div>
+
+        <div class="relative z-10 w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
+                    Share Your <span class="text-gradient">Beauty</span>
+                </h1>
+                <p class="text-slate-400 text-lg">
+                    ඔබගේ අලංකාර ඡායාරූප අපගේ ප්‍රජාව සමග බෙදාගන්න.
+                </p>
+            </div>
+
+            <div class="glass rounded-2xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
+                <form id="upload-form" class="space-y-8">
+                    <!-- Image Upload Area -->
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Upload Photo</label>
+                        <div id="upload-area" class="upload-area rounded-xl p-10 flex flex-col items-center justify-center cursor-pointer hover:bg-slate-800/50 relative overflow-hidden group">
+                            <input type="file" id="file-upload" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" accept="image/*">
+                            <div class="w-20 h-20 mb-4 rounded-full bg-slate-800 flex items-center justify-center text-purple-400 text-3xl group-hover:scale-110 group-hover:text-pink-400 transition-all duration-300 shadow-lg">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <p id="upload-text" class="text-slate-300 text-center text-lg">
+                                <span class="font-semibold text-purple-400">Click to upload</span> or drag and drop
+                            </p>
+                            <p class="text-slate-500 text-sm mt-2">PNG, JPG, WEBP up to 10MB</p>
+                        </div>
+                    </div>
+
+                    <!-- Details -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="model-name" class="block text-sm font-medium text-slate-300 mb-2">Model Name</label>
+                            <input type="text" id="model-name" class="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all placeholder-slate-500" placeholder="e.g. Amanda Silva">
+                        </div>
+                        <div>
+                            <label for="category" class="block text-sm font-medium text-slate-300 mb-2">Category</label>
+                            <select id="category" class="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all appearance-none cursor-pointer">
+                                <option value="model">Model</option>
+                                <option value="actress">Actress</option>
+                                <option value="fashion">Fashion</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-400" style="margin-top: 28px; margin-right: 12px; height: 46px;">
+                                <i class="fas fa-chevron-down text-sm"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="instagram" class="block text-sm font-medium text-slate-300 mb-2">Instagram Handle (Optional)</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i class="fab fa-instagram text-slate-400"></i>
+                            </div>
+                            <input type="text" id="instagram" class="w-full bg-slate-800/50 border border-slate-700 rounded-lg pl-10 pr-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all placeholder-slate-500" placeholder="@username">
+                        </div>
+                    </div>
+
+                    <div class="pt-4">
+                        <button id="upload-btn" type="submit" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold py-4 rounded-xl shadow-lg shadow-purple-500/25 transition-all flex items-center justify-center text-lg">
+                            Upload Image
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-slate-900/50 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-crown text-purple-500"></i>
+                    <span class="text-lg font-bold tracking-wider">QUEEN<span class="text-gradient">HUB</span></span>
+                </div>
+                <p class="text-slate-500 text-sm">
+                    &copy; 2026 Queen Hub. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+</body>
+</html>
